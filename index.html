@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Marcellus+SC&family=Mynerve&family=Permanent+Marker&family=Poppins:wght@300;400;500;600;700;800&family=Roboto:wght@100;300;400;500;700;900&family=Special+Elite&display=swap" rel="stylesheet">
+</head>
+<body data-theme="light">
+    <div class="header">
+        <button class="questionmark">
+        </button>
+        <h1 class="header-h1">Tic-<span class="orange-span">Tac</span>-Toe</h1>
+        <div class="header-buttons">
+            <button class="manage-players"></button>
+            <button class="dark-mode"></button>
+        </div>
+    </div>
+    <div class="main">
+        <div class="game-main">
+            <div class="player1 playerBoard">
+                <div class="player1-name">Player 1</div>
+                <div class="player1-score">0</div>
+            </div>
+            <div class="gameboard">
+            </div>
+            <div class="player2 playerBoard">
+                <div class="player2-name">Player 2</div>
+                <div class="player2-score">0</div>
+            </div>
+        </div>
+        <div class="game-buttons">
+            <button onclick="nextRound()" class="next-round">Next Round</button>
+            <button onclick='newGame()' class='new-game'>New Game</button>
+        </div>
+    </div>
+        <div class="input-popup">
+            <div class="input-header">
+                <h1>Create Players</h1>
+            </div>
+            <form class="input-form">
+                <div class="inputs">
+                    <div class="first-player">
+                        <label for="player1">Player 1</label>
+                        <input maxlength="11" id="player1" type="text" placeholder="Name">
+                    </div>
+                    <div class="vs">
+                        vs
+                    </div>
+                    <div class="second-player">
+                        <label for="player2">Player 2</label>
+                        <input maxlength="11" id="player2" type="text" placeholder="Name">
+                    </div>
+                </div>
+                <button class="submit" type="submit">Play</button>
+            </form>
+        </div>
+        <div class="input-draw inactive">
+            <h1>DRAW</h1>
+            <p>You are both too good!</p>
+            <div class="game-buttons">
+                <button onclick="nextRound()" class="next-round">Next Round</button>
+                <button onclick='newGame()' class='new-game'>New Game</button>
+            </div>
+        </div>
+        <div class="input-quest off">
+            <h1>What to do.</h1>
+            <p>Connect three of the same icons vertically, horizontally or diagonaly. After any player wins the round continue by clicking "Next Round". First to five wins!
+            </p>
+        </div>
+        <div class="endgame-popup">
+            <div class="endText"><span class="winner"></span> is better player</div>
+            <div class="game-buttons">
+                <button onclick="hide()" class="defeat">Accept Defeat</button>
+                <button onclick='newGame()' class='new-game'>New Game</button>
+            </div>
+        </div>
+    <div class="footer">
+        Created by Lukáš Boguský
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
