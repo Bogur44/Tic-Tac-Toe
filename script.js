@@ -1,15 +1,29 @@
 const modeToggle = document.querySelector('.dark-mode')
 const body = document.querySelector('body')
 const submitBtn = document.querySelector('.submit')
+const manageButton = document.querySelector('.manage-players')
 const inputPopup = document.querySelector('.input-popup')
 const gameboard = document.querySelector('.gameboard')
 const questbtn = document.querySelector('.questionmark')
 const questPopup = document.querySelector('.input-quest')
+const closeButton = document.querySelector(".close-button");
 
 let player1Score = 0;
 let player2Score = 0;
 let startingPlayer = '';
+let activePlayer = ''
 let guessing = true;
+
+manageButton.addEventListener("click", () => {
+  inputPopup.classList.toggle("inactive");
+  closeButton.classList.remove("inactive");
+});
+
+closeButton.addEventListener('click', () => {
+  inputPopup.classList.add('inactive')
+  closeButton.classList.add("inactive");
+})
+
 
 questbtn.addEventListener('click', () => {
   questPopup.classList.toggle('off')
@@ -55,23 +69,22 @@ const boxes = [
     }
 ];
 
-
-
 function markBox(position){
   if(guessing === true){
     const children = gameboard.children;
     const activeBox = children.item(position)
     if(activeBox.getAttribute('marked') === 'false'){
-        activeBox.classList.add(startingPlayer.marker);
+        activeBox.classList.add(activePlayer.marker);
         activeBox.classList.remove('.empty')
-        activeBox.setAttribute('key',startingPlayer.marker)
+        activeBox.setAttribute('key',activePlayer.marker)
         winCheck(position);
-        if (startingPlayer === players[0]) {
-          startingPlayer = players[1];
-        } else if (startingPlayer === players[1]){
-          startingPlayer = players[0];
+        console.log(activePlayer);
+        if (activePlayer === players[0]) {
+          activePlayer = players[1];
+        } else if (activePlayer === players[1]){
+          activePlayer = players[0];
         };
-        console.log(startingPlayer)
+        console.log(activePlayer);
     }
     activeBox.setAttribute("marked", true);
   }
@@ -139,13 +152,13 @@ function winCheck(position){
       }
       if (keys === "OOO") {
         for (let i = 0; i <= 6; i += 3) {
-          children.item(i).classList.add('markedO')
+          children.item(i).classList.add('markedO', 'marked' )
         }
         player1Score++;
         guessing = false;
       } else if (keys === "XXX") {
         for (let i = 0; i <= 6; i += 3) {
-          children.item(i).classList.add("markedX");
+          children.item(i).classList.add("markedX", 'marked' );
         }
         player2Score++;
         guessing = false;
@@ -158,13 +171,13 @@ function winCheck(position){
       }
       if (keys === "OOO") {
         for (let i = 2; i <= 9; i += 3) {
-          children.item(i).classList.add('markedO');
+          children.item(i).classList.add('markedO', 'marked' );
         }
         player1Score++;
         guessing = false;
       } else if (keys === "XXX") {
         for (let i = 2; i <= 9; i += 3) {
-          children.item(i).classList.add("markedX");;
+          children.item(i).classList.add("markedX", 'marked' );;
         }
         player2Score++;
         guessing = false;
@@ -179,13 +192,13 @@ function winCheck(position){
       }
       if (keys === "OOO") {
         for (let i = 6; i <= 8; i++) {
-          children.item(i).classList.add('markedO');
+          children.item(i).classList.add('markedO', 'marked' );
         }
         player1Score++;
         guessing = false;
       } else if (keys === "XXX") {
         for (let i = 6; i <= 8; i++) {
-          children.item(i).classList.add("markedX");;
+          children.item(i).classList.add("markedX", 'marked' );;
         }
         player2Score++;
         guessing = false;
@@ -200,13 +213,13 @@ function winCheck(position){
       }
       if (keys === "OOO") {
         for (let i = parseInt(position); i >= parseInt(position) - 6; i -= 3) {
-          children.item(i).classList.add('markedO');
+          children.item(i).classList.add('markedO', 'marked' );
         }
         player1Score++;
         guessing = false;
       } else if (keys === "XXX") {
         for (let i = parseInt(position); i >= parseInt(position) - 6; i -= 3) {
-          children.item(i).classList.add("markedX");;
+          children.item(i).classList.add("markedX", 'marked' );;
         }
         player2Score++;
         guessing = false;
@@ -221,13 +234,13 @@ function winCheck(position){
       }
       if (keys === "OOO") {
         for (let i = parseInt(position); i <= parseInt(position) + 6; i += 3) {
-          children.item(i).classList.add('markedO');
+          children.item(i).classList.add('markedO', 'marked' );
         }
         player1Score++;
         guessing = false;
       } else if (keys === "XXX") {
         for (let i = parseInt(position); i <= parseInt(position) + 6; i += 3) {
-          children.item(i).classList.add("markedX");;
+          children.item(i).classList.add("markedX", 'marked' );;
         }
         player2Score++;
         guessing = false;
@@ -243,13 +256,13 @@ function winCheck(position){
       }
       if (keys === "OOO") {
         for (let i = parseInt(position); i <= parseInt(position) + 2; i++) {
-          children.item(i).classList.add('markedO');
+          children.item(i).classList.add('markedO', 'marked' );
         }
         player1Score++;
         guessing = false;
       } else if (keys === "XXX") {
         for (let i = parseInt(position); i <= parseInt(position) + 2; i++) {
-          children.item(i).classList.add("markedX");;
+          children.item(i).classList.add("markedX", 'marked' );;
         }
         player2Score++;
         guessing = false;
@@ -264,13 +277,13 @@ function winCheck(position){
       }
       if (keys === "OOO") {
         for (let i = parseInt(position); i >= parseInt(position) - 2; i--) {
-          children.item(i).classList.add('markedO');
+          children.item(i).classList.add('markedO', 'marked' );
         }
         player1Score++;
         guessing = false;
       } else if (keys === "XXX") {
         for (let i = parseInt(position); i >= parseInt(position) - 2; i--) {
-          children.item(i).classList.add("markedX");;
+          children.item(i).classList.add("markedX", 'marked' );;
         }
         player2Score++;
         guessing = false;
@@ -289,7 +302,7 @@ function winCheck(position){
           parseInt(position) - 3 <= i >= parseInt(position) + 3;
           i++
         ) {
-          children.item(i).classList.add('markedO');
+          children.item(i).classList.add('markedO', 'marked' );
         }
         player1Score++;
         guessing = false;
@@ -299,7 +312,7 @@ function winCheck(position){
           parseInt(position) - 3 <= i >= parseInt(position) + 3;
           i++
         ) {
-          children.item(i).classList.add("markedX");;
+          children.item(i).classList.add("markedX", 'marked' );;
         }
         player2Score++;
         guessing = false;
@@ -320,7 +333,7 @@ function winCheck(position){
         for (let i = parseInt(position) - 1;
         parseInt(position) - 1 <= i >= parseInt(position) + 1;
         i++) {
-          children.item(i).classList.add('markedO');
+          children.item(i).classList.add('markedO', 'marked' );
         }
         player1Score++;
         guessing = false;
@@ -330,7 +343,7 @@ function winCheck(position){
           parseInt(position) - 1 <= i >= parseInt(position) + 1;
           i++
         ) {
-          children.item(i).classList.add("markedX");;
+          children.item(i).classList.add("markedX", 'marked' );;
         }
         player2Score++;
         guessing = false;
@@ -343,13 +356,13 @@ function winCheck(position){
       }
       if (keys === "OOO") {
         for (let i = 0; i <= 2; i++) {
-          children.item(i).classList.add('markedO');
+          children.item(i).classList.add('markedO', 'marked' );
         }
         player1Score++;
         guessing = false;
       } else if (keys === "XXX") {
         for (let i = 0; i <= 2; i++) {
-          children.item(i).classList.add("markedX");;
+          children.item(i).classList.add("markedX", 'marked' );;
         }
         player2Score++;
         guessing = false;
@@ -362,13 +375,13 @@ function winCheck(position){
       }
       if (keys === "OOO") {
         for (let i = 3; i <= 5; i++) {
-          children.item(i).classList.add("markedO");
+          children.item(i).classList.add("markedO", 'marked' );
         }
         player1Score++;
         guessing = false;
       } else if (keys === "XXX") {
         for (let i = 3; i <= 5; i++) {
-          children.item(i).classList.add("markedX");
+          children.item(i).classList.add("markedX", 'marked' );
         }
         player2Score++;
         guessing = false;
@@ -381,13 +394,13 @@ function winCheck(position){
       }
       if (keys === "OOO") {
         for (let i = 0; i <= 9; i += 4) {
-          children.item(i).classList.add('markedO');
+          children.item(i).classList.add('markedO', 'marked' );
         }
         player1Score++;
         guessing = false;
       } else if (keys === "XXX") {
         for (let i = 0; i <= 9; i += 4) {
-          children.item(i).classList.add("markedX");;
+          children.item(i).classList.add("markedX", 'marked' );;
         }
         player2Score++;
         guessing = false;
@@ -400,26 +413,27 @@ function winCheck(position){
       }
       if (keys === "OOO"){
         for (let i = 2; i <= 6; i += 2) {
-          children.item(i).classList.add('markedO');
+          children.item(i).classList.add('markedO', 'marked' );
         }
         player1Score++;
         guessing = false;
       }
       else if(keys === 'XXX'){
         for (let i = 2; i <= 6; i += 2) {
-          children.item(i).classList.add("markedX");
+          children.item(i).classList.add("markedX", 'marked');
         }
         player2Score++;
         guessing = false;
       }
     }
-    function checkDraw(){
-      let keyDraw = '';
-      for(let i = 0; i <= gameboard.childElementCount - 1; i++){
+    function checkDraw() {
+      let keyDraw = "";
+      for (let i = 0; i <= gameboard.childElementCount - 1; i++) {
+        let child = children.item(i);
         if (
-          children.item(i).getAttribute("marked") === "true" &&
-          children.item(i).getAttribute("class") != "box" &&
-          children.item(i).getAttribute("class") != "markedO"
+          child.getAttribute("marked") === "true" &&
+          child.classList.contains("markedO") === false &&
+          child.classList.contains("markedX") === false
         ) {
           keyDraw = keyDraw + "1";
           console.log(keyDraw);
@@ -467,8 +481,8 @@ submitBtn.addEventListener('click', (e) => {
       document.querySelector("#player1").value || "Player 1");
     const player2 = playerMaker(
       document.querySelector("#player2").value || "Player 2");
-      player1.marker = 'X';
-      player2.marker = "O";
+      player1.marker = 'O';
+      player2.marker = "X";
     players.push(player1, player2)
     player1Text.textContent = player1.name;
     player2Text.textContent = player2.name;
@@ -476,6 +490,9 @@ submitBtn.addEventListener('click', (e) => {
     console.log(players);
     inputPopup.classList.add('inactive');
     startingPlayer = players[0];
+    activePlayer = startingPlayer;
+    star()
+    newGame()
 })
 
 function nextRound(){
@@ -495,6 +512,8 @@ function nextRound(){
     startingPlayer = players[0];
   }
   console.log(startingPlayer)
+  activePlayer = startingPlayer;
+  star()
 }
 function newGame(){
   let childs = gameboard.children;
@@ -513,6 +532,13 @@ function newGame(){
   document.querySelector(".input-draw").classList.add("inactive");
   document.querySelector(".endgame-popup").classList.remove("active-popup");
   document.querySelector(".defeat").classList.remove("inactive");
+  if (startingPlayer === players[0]) {
+    startingPlayer = players[1];
+  } else if (startingPlayer === players[1]) {
+    startingPlayer = players[0];
+  }
+  activePlayer = startingPlayer;
+  star()
 }
 
 const endgame = document.querySelector('.endgame-popup')
@@ -534,4 +560,14 @@ function endGame(){
 }
 function hide(){
   document.querySelector('.defeat').classList.add('inactive')
+}
+function star(){
+  let stars = document.querySelectorAll('.star')
+  for(const star of stars){
+    star.classList.add('inactive')
+  }
+  let playerStart = document.querySelector(
+    "." + startingPlayer.name.replace(/ +/g, "") + "-start"
+  );
+  playerStart.classList.remove('inactive')
 }
